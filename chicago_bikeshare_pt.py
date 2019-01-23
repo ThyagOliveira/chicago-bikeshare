@@ -54,12 +54,14 @@ input("Aperte Enter para continuar...")
 # TAREFA 3
 # TODO: Crie uma função para adicionar as colunas(features) de uma lista em outra lista, na mesma ordem
 def column_to_list(data, index):
-    # Função para adicionar as colunas de uma lista em outra lista.
-    # Argumentos:
-    #     data_list: Lista com os dados.
-    #     index: posição da coluna
-    # Retorna:
-    #     A lista de colunas.
+    """ 
+    Função para adicionar as colunas de uma lista em outra lista.
+    Argumentos:
+        data_list: Lista com os dados.
+        index: posição da coluna
+    Retorna:
+        A lista de colunas. 
+    """
     column_list = []
     # Dica: Você pode usar um for para iterar sobre as amostras, pegar a feature pelo seu índice, e dar append para uma lista
     for element in data:
@@ -101,11 +103,13 @@ input("Aperte Enter para continuar...")
 # TODO: Crie uma função para contar os gêneros. Retorne uma lista.
 # Isso deveria retornar uma lista com [count_male, count_female] (exemplo: [10, 15] significa 10 Masculinos, 15 Femininos)
 def count_gender(data_list):
-    # Função que conta a quantidade de usuários de cada gênero.
-    # Argumentos:
-    #     data_list: Lista com os dados.
-    # Retorna:
-    #     Uma lista com a quantidade de cada gênero.
+    """ 
+    Função que conta a quantidade de usuários de cada gênero.
+    Argumentos:
+        data_list: Lista com os dados.
+    Retorna:
+        Uma lista com a quantidade de cada gênero. 
+    """
     male = 0
     female = 0
     for element in data_list:
@@ -131,11 +135,13 @@ input("Aperte Enter para continuar...")
 # TODO: Crie uma função que pegue o gênero mais popular, e retorne este gênero como uma string.
 # Esperamos ver "Male", "Female", ou "Equal" como resposta.
 def most_popular_gender(data_list):
-    # Função que identifica o gênero mais popular.
-    # Argumentos:
-    #     data_list: Lista com os dados.
-    # Retorna:
-    #     Uma variável contendo o gênero mais popular.
+    """ 
+    Função que identifica o gênero mais popular.
+    Argumentos:
+        data_list: Lista com os dados.
+    Retorna:
+        Uma variável contendo o gênero mais popular. 
+    """
     answer = ""
     genders = count_gender(data_list)
     if genders[0] > genders[1]:
@@ -171,22 +177,27 @@ input("Aperte Enter para continuar...")
 # TAREFA 7
 # TODO: Crie um gráfico similar para user_types. Tenha certeza que a legenda está correta.
 def count_user_types(data_list):
-    # Função que conta a quantidade de tipos de usuários.
-    # Argumentos:
-    #     data_list: Lista com os dados.
-    # Retorna:
-    #     Uma lista com a quantidade de cada tipo de usuário.
+    """ 
+    Função que conta a quantidade de tipos de usuários.
+    Argumentos:
+        data_list: Lista com os dados.
+    Retorna:
+        Uma lista com a quantidade de cada tipo de usuário. 
+    """
     customer = 0
     subscriber = 0
+    dependent = 0
     for element in data_list:
         if element[5] == 'Customer':
             customer += 1
         elif element[5] == 'Subscriber':
             subscriber += 1
-    return [customer, subscriber]
+        elif element[5] == 'Dependent':
+            dependent += 1
+    return [customer, subscriber, dependent]
 
 user_types = [data_list[index][5] for index in range(len(data_list))]
-types = ["Customer", "Subscriber"]
+types = ["Customer", "Subscriber", "Dependent"]
 quantity = count_user_types(data_list)
 y_pos = list(range(len(types)))
 plt.bar(y_pos, quantity)
@@ -223,22 +234,39 @@ mean_trip = 0.
 median_trip = 0.
 
 def convert_list_to_int(data_list):
-    # Função para converter para uma lista de inteiros.
-    # Argumentos:
-    #     data_list: Lista com os dados.
-    # Retorna:
-    #     Retorna uma lista de inteiros.
+    """ 
+    Função para converter para uma lista de inteiros.
+    Argumentos:
+        data_list: Lista com os dados.
+    Retorna:
+        Retorna uma lista de inteiros. 
+    """
     int_list = []
     for element in data_list:
         int_list.append(int(element))
     return int_list
 
+def sum_list(data_list):
+    """ 
+    Função que soma cada elemento da lista e retorna o valor total.
+    Argumentos:
+        data_list: Lista com os dados.
+    Retorna:
+        Retorna uma variável com o valor total da soma. 
+    """
+    sum = 0
+    for element in convert_list_to_int(data_list):
+        sum += element
+    return sum
+
 def list_min(data_list):
-    # Função que calcula o valor mínimo.
-    # Argumentos:
-    #     data_list: Lista com os dados.
-    # Retorna:
-    #     O menor valor da lista.
+    """ 
+    Função que calcula o valor mínimo.
+    Argumentos:
+        data_list: Lista com os dados.
+    Retorna:
+        O menor valor da lista. 
+    """
     value_min = 99999
     for element in convert_list_to_int(data_list):
         if element < value_min:
@@ -246,11 +274,13 @@ def list_min(data_list):
     return value_min
 
 def list_max(data_list):
-    # Função que calcula o valor máximo.
-    # Argumentos:
-    #     data_list: Lista com os dados.
-    # Retorna:
-    #     O maior valor da lista.
+    """ 
+    Função que calcula o valor máximo.
+    Argumentos:
+        data_list: Lista com os dados.
+    Retorna:
+        O maior valor da lista. 
+    """
     value_max = 0
     for element in convert_list_to_int(data_list):
         if element > value_max:
@@ -258,19 +288,23 @@ def list_max(data_list):
     return value_max
 
 def mean(data_list):   
-    # Função que calcula a média.
-    # Argumentos:
-    #     data_list: Lista com os dados.
-    # Retorna:
-    #     A média da lista de dados. 
-    return sum(convert_list_to_int(data_list)) / len(data_list)
+    """ 
+    Função que calcula a média.
+    Argumentos:
+        data_list: Lista com os dados.
+    Retorna:
+        A média da lista de dados.  
+    """
+    return sum_list(data_list) / len(data_list)
 
 def median(data_list):
-    # Função que calcula a mediana.
-    # Argumentos:
-    #     data_list: Lista com os dados.
-    # Retorna:
-    #     O menor valor da mediana da lista de dados.
+    """ 
+    Função que calcula a mediana.
+    Argumentos:
+        data_list: Lista com os dados.
+    Retorna:
+        O menor valor da mediana da lista de dados. 
+    """
     size = len(data_list)
     data_list = convert_list_to_int(data_list)
     
@@ -282,7 +316,7 @@ def median(data_list):
 min_trip = list_min(trip_duration_list)
 max_trip = list_max(trip_duration_list)            
 mean_trip = mean(trip_duration_list)
-median_trip = 670            
+median_trip = median(trip_duration_list)            
 
 print("\nTAREFA 9: Imprimindo o mínimo, máximo, média, e mediana")
 print("Min: ", min_trip, "Max: ", max_trip, "Média: ", mean_trip, "Mediana: ", median_trip)
@@ -329,6 +363,13 @@ print("Você vai encarar o desafio? (yes ou no)")
 answer = "yes"
 
 def count_items(column_list):
+    """ 
+    Função que retorna os tipos e a quantidade dos elementos da lista.
+    Argumentos:
+        column_list: Lista com os dados.
+    Retorna:
+        Uma lista com os tipos e outra com a quantidade. 
+    """
     item_types = []
     count_items = []
     for element in column_list:
